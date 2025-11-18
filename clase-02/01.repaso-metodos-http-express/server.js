@@ -1,4 +1,5 @@
 const express = require('express')
+const uuid = require('uuid')
 const app = express()
 const PORT = 8080
 
@@ -8,10 +9,11 @@ const db = [
     { id: 3, nombre: 'Mouse', precio: 50},
 ]
 
+// ! Middlewares
+app.use(express.json()) // Entender el json que se envíe desde el frontend 
 
 
-
-// Rutas, Endpoints, points
+// ! Rutas, Endpoints, points
 
 /* CRUD */
 // ! IMPORTANTE modelo que representan el request y response en petición http
@@ -22,7 +24,18 @@ const db = [
 
 app.post('/api/v1/productos', (req, res) => {
     // 1. Vamos recibir información (objeto request (req))
+    // El objeto req -> Tiene una key llamada body (Se recibe la información que se envían desde el front en el cuerpo )
+    console.log(req.body)
+    // Lógica de javascript
+    const {nombre, precio} = req.body
+    console.log(nombre)
+    console.log(precio)
 
+    if (!nombre || !precio) return res.status(400).json({ mensaje: 'Datos inválidos'})
+    
+    const nuevoProducto = { nombre, precio, id: uuid()}
+    console.log(nuevoProducto)
+    
 
     // 2. Vamos a responder (objeto response (res))
     res.send('POST -> CREATE') 
