@@ -1,0 +1,24 @@
+{
+  "name": "01.intro-node",
+  "version": "1.0.0",
+  "description": "Primer proyecto de Node",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
