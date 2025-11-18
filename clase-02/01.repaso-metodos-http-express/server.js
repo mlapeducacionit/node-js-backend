@@ -4,9 +4,9 @@ const app = express()
 const PORT = 8080
 
 const db = [
-    { id: '1', nombre: 'PC', precio: 200},
-    { id: '2', nombre: 'Notebook', precio: 500},
-    { id: '3', nombre: 'Mouse', precio: 50},
+    { id: '1', nombre: 'PC', precio: 200}, // 0
+    { id: '2', nombre: 'Notebook', precio: 500}, // 1
+    { id: '3', nombre: 'Mouse', precio: 50}, // 2
 ]
 
 // ! Middlewares
@@ -71,7 +71,28 @@ app.get('/api/v1/productos/:id/', (req, res) => {
 })
 
 // ! U:UPDATE -> PUT 
-// PUT -> /productos/:id | método PUT/PATCH | http://localhost:8080/productos/1 | body: { }
+// PUT -> /api/v1/productos/:id | método PUT/PATCH | http://localhost:8080/api/v1/productos/1 | body: { nombre, precio }
+
+app.put('/api/v1/productos/:id', (req, res) => {
+    // ! 1. Recibir la información
+    const id = req.params.id
+    const productoAEditar = req.body
+
+    console.log(id) // 1
+    console.log(productoAEditar)
+    
+    // Lógica de Javascript
+    const indice = db.findIndex(p => p.id === id)
+
+    console.log(indice)
+    console.log(db[indice]) // Estoy editando el producto con el id 1 -> posición 0
+
+
+    // ! 2. Respondiendo 
+    res.send('OK PUT')
+})
+
+
 // ! D:DELETE -> DELETE
 // DELETE -> /api/v1/productos/:id | método DELETE | http://localhost:8080/api/v1/productos/1
 
@@ -80,9 +101,20 @@ app.delete('/api/v1/productos/:id', (req, res) => {
     // key params es la clave donde van a estar llegando los parametros pasados por URL
     const idEliminar = req.params.id
     console.log(idEliminar)
-
-    // ! 2. Respondo al frontend
-    res.send('DELETE')
+    const indice = db.findIndex( prod => prod.id === idEliminar)
+    console.log(indice)
+    if ( indice < 0 ) {
+        // No se encontro el producto que queres borrar
+         // ! 2. Respondo al frontend
+        res.status(404).json({ mensaje: 'No se encontró el producto que querés borrar'})
+    } else {
+        // Encontré el producto que quiero borrar
+        // Borro
+        const arrayElementosBorrados = db.splice(indice, 1)
+        console.log(arrayElementosBorrados)
+         // ! 2. Respondo al frontend
+        res.json(arrayElementosBorrados[0])
+    }
 })
 
 
