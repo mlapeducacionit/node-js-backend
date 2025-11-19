@@ -1,4 +1,4 @@
-const { obtenerTodosLosProductos, buscarProductoPorId, guardarProducto } = require("../models/productos.model")
+const { obtenerTodosLosProductos, buscarProductoPorId, guardarProducto, obtenerIndice, eliminarProductoByIndice } = require("../models/productos.model")
 
 
 
@@ -45,8 +45,36 @@ const create = (req, res) => {
     res.status(201).json(nuevoProducto)
 }
 
+const remove =  (req, res) => {
+    // ! 1. Gestiono lo que viene el request
+    const idEliminar = req.params.id
+    console.log(idEliminar)
+
+    // ! 2. El controlador le pide los datos al modelo
+    
+    const indice = obtenerIndice(idEliminar)
+    console.log(indice)
+
+    // ! 3. Gestiono lo que respondo
+    if ( indice < 0 ) {
+        // ! 3.1. 
+        res.status(404).json({ mensaje: 'No se encontró el producto que querés borrar'})
+    } else {
+        // ! 2.1
+        const arrayElementosBorrados = eliminarProductoByIndice(indice)
+        
+        console.log(arrayElementosBorrados)
+
+        // ! 3.1
+        res.json(arrayElementosBorrados[0])
+    }
+    
+   
+}
+
 module.exports = {
     getAll,
     getOne,
-    create
+    create,
+    remove
 }

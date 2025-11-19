@@ -1,7 +1,6 @@
 const express = require('express')
-const { v4: uuidv4 } = require('uuid');
 const db = require('./db/productos');
-const { getAll, getOne, create } = require('./controllers/productos.controller');
+const { getAll, getOne, create, remove } = require('./controllers/productos.controller');
 const app = express()
 const PORT = 8080
 
@@ -25,7 +24,6 @@ app.get('/api/v1/productos', getAll)
 // GET ONE -> /api/v1/productos/:id | método GET | -> http://localhost:8080/api/v1/productos/1
 app.get('/api/v1/productos/:id/', getOne)
 
-
 // ! U:UPDATE -> PUT 
 // PUT -> /api/v1/productos/:id | método PUT/PATCH | http://localhost:8080/api/v1/productos/1 | body: { nombre, precio }
 
@@ -40,7 +38,6 @@ app.put('/api/v1/productos/:id', (req, res) => {
 
 
     if (!nombre || !precio) return res.status(400).json({ mensaje: 'Datos inválidos'})
-
     
     // Lógica de Javascript
     const indice = db.findIndex(p => p.id === id)
@@ -62,27 +59,7 @@ app.put('/api/v1/productos/:id', (req, res) => {
 
 // ! D:DELETE -> DELETE
 // DELETE -> /api/v1/productos/:id | método DELETE | http://localhost:8080/api/v1/productos/1
-
-app.delete('/api/v1/productos/:id', (req, res) => {
-    // ! 1. Gestiona la informaicón que llega
-    // key params es la clave donde van a estar llegando los parametros pasados por URL
-    const idEliminar = req.params.id
-    console.log(idEliminar)
-    const indice = db.findIndex( prod => prod.id === idEliminar)
-    console.log(indice)
-    if ( indice < 0 ) {
-        // No se encontro el producto que queres borrar
-         // ! 2. Respondo al frontend
-        res.status(404).json({ mensaje: 'No se encontró el producto que querés borrar'})
-    } else {
-        // Encontré el producto que quiero borrar
-        // Borro
-        const arrayElementosBorrados = db.splice(indice, 1)
-        console.log(arrayElementosBorrados)
-         // ! 2. Respondo al frontend
-        res.json(arrayElementosBorrados[0])
-    }
-})
+app.delete('/api/v1/productos/:id', remove)
 
 
 app.listen(PORT, () => {
