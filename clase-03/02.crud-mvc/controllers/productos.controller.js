@@ -1,4 +1,5 @@
-const { obtenerTodosLosProductos, buscarProductoPorId } = require("../models/productos.model")
+const { obtenerTodosLosProductos, buscarProductoPorId, guardarProducto } = require("../models/productos.model")
+
 
 
 const getAll = (req, res) => { 
@@ -25,7 +26,27 @@ const getOne = (req, res) => {
     res.json(productoEncontrado)
 }
 
+const controlarDatos = (nombre, precio) => {
+    return !nombre || !precio
+}
+
+const create = (req, res) => {
+
+    // ! 1. Gestiono lo que viene el request
+    console.log(req.body)
+    const {nombre, precio} = req.body
+    console.log(nombre)
+    console.log(precio)
+
+    if (controlarDatos(nombre, precio)) return res.status(400).json({ mensaje: 'Datos inválidos'})
+    // ! 2. El controlador le pide los datos al modelo 
+    const nuevoProducto = guardarProducto(nombre, precio)
+    // ! 3. Gestiono lo que respondo
+    res.status(201).json(nuevoProducto)
+}
+
 module.exports = {
     getAll,
-    getOne
+    getOne,
+    create
 }

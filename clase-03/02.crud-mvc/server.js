@@ -1,7 +1,7 @@
 const express = require('express')
 const { v4: uuidv4 } = require('uuid');
 const db = require('./db/productos');
-const { getAll, getOne } = require('./controllers/productos.controller');
+const { getAll, getOne, create } = require('./controllers/productos.controller');
 const app = express()
 const PORT = 8080
 
@@ -16,25 +16,7 @@ app.use(express.json()) // Entender el json que se envíe desde el frontend
 // ! C:CREATE -> POST
 // POST -> /api/v1/productos | método POST | http://localhost:8080/api/v1/productos | body: { nombre, precio }
 // El backend es el que se encarga de generar el ID.
-
-app.post('/api/v1/productos', (req, res) => {
-    // ! 1. Vamos recibir información (objeto request (req))
-    // El objeto req -> Tiene una key llamada body (Se recibe la información que se envían desde el front en el cuerpo )
-    console.log(req.body)
-    // ! Lógica de javascript
-    const {nombre, precio} = req.body
-    console.log(nombre)
-    console.log(precio)
-
-    if (!nombre || !precio) return res.status(400).json({ mensaje: 'Datos inválidos'})
-    
-    const nuevoProducto = { nombre, precio, id: uuidv4()}
-    console.log(nuevoProducto)
-    db.push(nuevoProducto)
-
-    // ! 2. Vamos a responder (objeto response (res))
-    res.status(201).json(nuevoProducto)
-})
+app.post('/api/v1/productos', create)
 
 // ! R:READ -> GET 
 // GET ALL -> /api/v1/productos | método GET | -> http://localhost:8080/api/v1/productos

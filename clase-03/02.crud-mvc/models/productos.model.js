@@ -1,4 +1,5 @@
 const db = require("../db/productos")
+const { v4: uuidv4 } = require('uuid');
 
 const obtenerTodosLosProductos = () => {
     return db
@@ -9,7 +10,14 @@ const buscarProductoPorId = (id) => {
     return productoEncontrado
 }
 
+const guardarProducto = (nombre, precio) => {
+    const nuevoProducto = { nombre, precio, id: uuidv4()}
+    db.push(nuevoProducto)
+    return nuevoProducto
+}
+
 module.exports = {
     obtenerTodosLosProductos,
-    buscarProductoPorId
+    buscarProductoPorId,
+    guardarProducto
 }
