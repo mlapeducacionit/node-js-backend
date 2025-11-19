@@ -4,6 +4,12 @@ const obtenerTodosLosProductos = () => {
     return db
 }
 
+const buscarProductoPorId = (id) => {
+    const productoEncontrado = db.find(prod => prod.id === id)
+    return productoEncontrado
+}
+
 module.exports = {
-    obtenerTodosLosProductos
+    obtenerTodosLosProductos,
+    buscarProductoPorId
 }
