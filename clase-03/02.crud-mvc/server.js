@@ -1,7 +1,7 @@
 const express = require('express')
 const { v4: uuidv4 } = require('uuid');
 const db = require('./db/productos');
-const { obtenerTodosLosProductos, buscarProductoPorId } = require('./models/productos.model');
+const { getAll, getOne } = require('./controllers/productos.controller');
 const app = express()
 const PORT = 8080
 
@@ -38,32 +38,10 @@ app.post('/api/v1/productos', (req, res) => {
 
 // ! R:READ -> GET 
 // GET ALL -> /api/v1/productos | método GET | -> http://localhost:8080/api/v1/productos
-
-app.get('/api/v1/productos', (req, res) => { 
- // ! 1. Gestiono lo que viene el request
-
- // ! 2. El controlador le pide los datos al modelo 
- const db = obtenerTodosLosProductos()
-
- // ! 3. Gestiono lo que respondo
-  res.json(db)
-})
+app.get('/api/v1/productos', getAll)
 
 // GET ONE -> /api/v1/productos/:id | método GET | -> http://localhost:8080/api/v1/productos/1
-app.get('/api/v1/productos/:id/', (req, res) => { 
-    // ! 1. Gestiono lo que viene el request
-    console.log(req.params) // { id }
-    const id = req.params.id
-    console.log(id)
-
-    // ! 2. El controlador le pide los datos al modelo 
-    const productoEncontrado = buscarProductoPorId(id)   
-
-    // ! 3. Gestiono lo que respondo
-    if (!productoEncontrado) res.status(404).json( {mensaje: 'No existe ese producto '} )
-    res.json(productoEncontrado)
-})
-
+app.get('/api/v1/productos/:id/', getOne)
 
 
 // ! U:UPDATE -> PUT 
