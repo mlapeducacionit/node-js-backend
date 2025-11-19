@@ -16,8 +16,8 @@ const guardarProducto = (nombre, precio) => {
     return nuevoProducto
 }
 
-const obtenerIndice = (idEliminar) => {
-    const indice = db.findIndex( prod => prod.id === idEliminar)
+const obtenerIndice = (id) => {
+    const indice = db.findIndex( prod => prod.id === id)
     return indice
 }
 
@@ -26,10 +26,16 @@ const eliminarProductoByIndice = (indice) => {
     return arrayElementosBorrados
 }
 
+const editarProducto = (indice, nombre, precio) => {
+    db[indice] = { ...db[indice], nombre, precio }
+    return db[indice]
+}
+
 module.exports = {
     obtenerTodosLosProductos,
     buscarProductoPorId,
     guardarProducto,
     obtenerIndice,
-    eliminarProductoByIndice
+    eliminarProductoByIndice,
+    editarProducto
 } 

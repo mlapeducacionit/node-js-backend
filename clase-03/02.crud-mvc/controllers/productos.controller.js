@@ -1,4 +1,4 @@
-const { obtenerTodosLosProductos, buscarProductoPorId, guardarProducto, obtenerIndice, eliminarProductoByIndice } = require("../models/productos.model")
+const { obtenerTodosLosProductos, buscarProductoPorId, guardarProducto, obtenerIndice, eliminarProductoByIndice, editarProducto } = require("../models/productos.model")
 
 
 
@@ -68,13 +68,40 @@ const remove =  (req, res) => {
         // ! 3.1
         res.json(arrayElementosBorrados[0])
     }
+
+}
+
+const update = (req, res) => {
+
+    // ! 1. Gestiono lo que viene el request        
+    const id = req.params.id
+    console.log(id) // 1
+
+    const { nombre, precio } = req.body
+    console.log(nombre)
+    console.log(precio)
+
     
-   
+    // ! 2.1
+    if (controlarDatos(nombre, precio)) return res.status(400).json({ mensaje: 'Datos inválidos'})
+        
+    // ! 2. El controlador le pide los datos al modelo
+    const indice = obtenerIndice(id)
+    
+    if (indice === -1) {
+        // ! 2.1
+        return res.status(404).json( { mensaje: 'No tengo el producto que querés editar' } )
+    }
+    
+    // ! 3. Gestiono lo que respondo
+    const productoEditado = editarProducto(indice, nombre, precio)
+    res.json(productoEditado)
 }
 
 module.exports = {
     getAll,
     getOne,
     create,
-    remove
+    remove,
+    update
 }
