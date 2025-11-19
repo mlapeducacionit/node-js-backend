@@ -1,17 +1,12 @@
 const express = require('express')
 const { v4: uuidv4 } = require('uuid');
+const db = require('./db/productos');
+const { obtenerTodosLosProductos } = require('./models/productos.model');
 const app = express()
 const PORT = 8080
 
-const db = [
-    { id: '1', nombre: 'PC', precio: 200}, // 0
-    { id: '2', nombre: 'Notebook', precio: 500}, // 1
-    { id: '3', nombre: 'Mouse', precio: 50}, // 2
-]
-
 // ! Middlewares
 app.use(express.json()) // Entender el json que se envíe desde el frontend 
-
 
 // ! Rutas, Endpoints, points
 
@@ -41,12 +36,16 @@ app.post('/api/v1/productos', (req, res) => {
     res.status(201).json(nuevoProducto)
 })
 
-
-
 // ! R:READ -> GET 
 // GET ALL -> /api/v1/productos | método GET | -> http://localhost:8080/api/v1/productos
 
 app.get('/api/v1/productos', (req, res) => { 
+ // ! 1. Gestiono lo que viene el request
+
+ // ! 2. El controlador le pide los datos al modelo 
+ const db = obtenerTodosLosProductos()
+
+ // ! 3. Gestiono lo que respondo
   res.json(db)
 })
 
@@ -55,7 +54,7 @@ app.get('/api/v1/productos/:id/', (req, res) => {
     // Dentro del request -> key llamada -> params
     console.log(req.params) // { id }
     //const id = parseInt(req.params.id)
-    const id = eq.params.id
+    const id = req.params.id
     console.log(id)
     const productoBuscando = db.find(prod => prod.id === id)
     console.log(productoBuscando)
