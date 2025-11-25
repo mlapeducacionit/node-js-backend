@@ -49,9 +49,16 @@ const soloAdministradores = (req, res, next) => {
     if ( req.query.rol === 'admin' ) {
         next()
     } else {
-        res.status(403).send('Acceso denegado')
+        //res.status(403).send('Acceso denegado') // el servidor recibió la petición. rechaza la petición.
+        const error = {
+            status: 403,
+            mensaje: 'Acceso denegado'
+        }
+        next(error)
     }
 }
+
+
 
 app.use(soloAdministradores)
 
@@ -75,6 +82,19 @@ app.get('/api/v1/admin-panel', (req, res) => {
 app.all('{*splat}', (req, res) => {
     res.send('Otra ruta!')
 })
+
+// ! Middlewarej de manejo de error (siempre al final)
+
+const errorHandler = (err, req, res, next) => {
+    console.log(err)
+    res.status(err.status || 500).json(
+        {
+            mensaje: err.mensaje || 'Error interno del servidor'
+        } 
+    )
+}
+
+app.use(errorHandler)
 
 // ! Arranque/Escucha aplicación
 app.listen(PORT, () => {
