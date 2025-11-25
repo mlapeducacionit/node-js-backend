@@ -2,6 +2,7 @@
 // https://nodejs.org/docs/latest/api/esm.html
 import express from 'express' // Módulos de Node -> ES Modules
 import 'dotenv/config'
+import validarToken from './middlewares/validar-token.js'
 
 // ! Constantes / variables
 const app = express()
@@ -20,9 +21,29 @@ const PORT = process.env.PORT
 // * Manejar errores globales
 // * Limitar el acceso por IP, rol, token, etc
 
+import { fileURLToPath } from 'url'
+import path from 'path'
+// ! API para gestión de rutas
+// API Path
+// API Url
+
+//console.log(import.meta.url) // Es un variable especial que nos devuelve la url del archivo actual
+//console.log(fileURLToPath(import.meta.url)) // Convierte la URL en una ruta de archivo según el SO
+//console.log(path.dirname(fileURLToPath(import.meta.url))) // Objeto que tiene métodos para gestionar rutas en los diferentes SO
+
+const url = import.meta.url
+const rutaArchivoServer = fileURLToPath(url)
+const rutaSinArchivoServer = path.dirname(rutaArchivoServer)
+console.log(rutaSinArchivoServer)
+
+const rutaAPublic = path.join(rutaSinArchivoServer, 'public')
+console.log(rutaAPublic)
+
 
 // ! 1. Middleware a nivel de aplicación (Buildin) || Dentro de Express
-app.use(express.static('./public'))
+//app.use(express.static('./public'))
+// Static -> Le digo a express que el directorio public va a ser de acceso público.
+app.use(express.static(rutaAPublic))
 app.use(express.json()) // Para que express decifre lo que le llega por el body (json)
 
 // Middleware que nos loguea a que ruta ingreso el usuario
@@ -62,20 +83,6 @@ const soloAdministradores = (req, res, next) => {
 // app.use(soloAdministradores)
 
 // ! 2. Middleware a nivel de ruta
-
-const validarToken = (req, res, next) => {
-    console.log(req.headers)
-    if ( req.headers['x-token'] === 'a23e442ed3428') {
-        next()
-    } else {
-        const error ={
-            status: 401,
-            mensaje: 'No tiene permisos para poder acceder a la sección'
-        }
-        next(error)
-        //res.status(401).send('No se tiene acceso. No recibimos el token.')
-    }
-}
 
 // ! Rutas / Ruteo
 // case '/'
