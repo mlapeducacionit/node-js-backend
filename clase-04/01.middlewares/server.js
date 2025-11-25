@@ -59,10 +59,23 @@ const soloAdministradores = (req, res, next) => {
 }
 
 
-
-app.use(soloAdministradores)
+// app.use(soloAdministradores)
 
 // ! 2. Middleware a nivel de ruta
+
+const validarToken = (req, res, next) => {
+    console.log(req.headers)
+    if ( req.headers['x-token'] === 'a23e442ed3428') {
+        next()
+    } else {
+        const error ={
+            status: 401,
+            mensaje: 'No tiene permisos para poder acceder a la sección'
+        }
+        next(error)
+        //res.status(401).send('No se tiene acceso. No recibimos el token.')
+    }
+}
 
 // ! Rutas / Ruteo
 // case '/'
@@ -70,11 +83,17 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 // case '/api/v1/productos'
-app.get('/api/v1/productos', (req, res) => {
+app.get('/api/v1/productos', validarToken, (req, res) => {
     res.send('Listamos productos...')
 })
 
-app.get('/api/v1/admin-panel', (req, res) => {
+/* app.get('/api/v1/admin-panel', soloAdministradores, validarToken, (req, res) => {
+    res.send('Area restringida!')
+}) */
+
+const arrayMiddlewares = [soloAdministradores, validarToken]
+
+app.get('/api/v1/admin-panel', arrayMiddlewares, (req, res) => {
     res.send('Area restringida!')
 })
 
