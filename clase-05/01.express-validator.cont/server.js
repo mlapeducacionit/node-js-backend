@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/datos-contacto', (req, res) => {
+app.post('/datos-contacto-manual', (req, res) => {
     console.log(req.body)
     const error = []
 
@@ -45,6 +45,12 @@ app.post('/datos-contacto', (req, res) => {
     }
 
     res.status(201).json({ mensaje: 'Todo Okey', nombre: name, apellido: lastname, edad: age })
+})
+
+app.post('/datos-contacto', (req, res) => {
+    console.log(req.body)
+   
+    res.status(201).json({ mensaje: 'Todo Okey' })
 })
 
 app.listen(PORT, () => {
