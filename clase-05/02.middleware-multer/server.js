@@ -57,7 +57,8 @@ app.post('/api/v1/uploads', upload.single('archivo'), (req, res) => {
   const host = req.get('host')
   const urlAlArchivo = `${protocolo}://${host}/${req.file.filename}`
   console.log(urlAlArchivo)
-  res.json({ data: req.file, url: urlAlArchivo })
+  //res.json({ data: req.file, url: urlAlArchivo })
+  res.json({ url: urlAlArchivo })
 })
 
 app.listen(PORT, () => {

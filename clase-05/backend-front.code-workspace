@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Backend Multer",
+			"path": "02.middleware-multer"
+		},
+		{
+			"name": "Frontend React",
+			"path": "03.front-upload-image"
+		}
+	],
+	"settings": {}
+}
