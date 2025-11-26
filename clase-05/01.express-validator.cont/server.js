@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import { fileURLToPath } from 'url'
 import path from 'path'
+import usuariosValidators from './validators/usuarios.validators.js'
 import { check, validationResult } from 'express-validator'
 
 // ! Constantes y Variables
@@ -51,7 +52,7 @@ app.post('/datos-contacto-manual', (req, res) => {
 // Middleware de ruta -> Express Validator -> https://express-validator.github.io/docs
 // -> https://github.com/validatorjs/validator.js
 // https://express-validator.github.io/docs/category/guides
-app.post('/datos-contacto', [
+app.post('/datos-contacto-todo-junto', [
                               check('name', 'El nombre es obligatorio y tiene que tener 3 a 10 caracteres').notEmpty().isLength({ min: 3, max: 12}).trim(),
                               check('lastname', 'El apellido es obligatorio').notEmpty(),
                               check('age', 'La edad es obligatoria y tiene que ser mayor de edad. Entre 18 y 99').notEmpty().isInt({ min: 18, max: 99}),
@@ -68,6 +69,12 @@ app.post('/datos-contacto', [
                                 next()
                               }
                             ], (req, res) => {
+    console.log(req.body)
+   
+    res.status(201).json({ mensaje: 'Todo Okey', data: req.body })
+})
+
+app.post('/datos-contacto', usuariosValidators, (req, res) => {
     console.log(req.body)
    
     res.status(201).json({ mensaje: 'Todo Okey', data: req.body })
