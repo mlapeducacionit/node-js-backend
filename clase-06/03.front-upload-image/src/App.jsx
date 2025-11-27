@@ -1,7 +1,8 @@
+import { useState } from "react"
 
 
 const App = () => {
-
+  const [srcImagen, setSrcImagen] = useState('')
 
   const envioFormulario = async (e) => {
     e.preventDefault()
@@ -34,6 +35,8 @@ const App = () => {
 
       console.log(data)
 
+      setSrcImagen(data.url)
+
       e.target.reset()
     } catch (error) {
       console.error(error)
@@ -52,6 +55,7 @@ const App = () => {
 
         <button className="btn btn-success">Enviar</button>
       </form>
+      <img src={srcImagen} alt="" width="200" />
     </div>
   )
 
