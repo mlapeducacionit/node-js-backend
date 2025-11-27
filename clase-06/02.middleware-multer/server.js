@@ -42,7 +42,13 @@ app.use(express.static(path.join(DIRNAME, 'uploads'))) // hago pública el acces
 console.log(path.join(DIRNAME, 'uploads'))
 app.use(express.json()) // Puedo recibir informaicón JSON
 app.use(express.urlencoded({ extended: false })) // Puedo recibir información de un Formulario
-app.use(cors())
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
 
 
 // ! Rutas
