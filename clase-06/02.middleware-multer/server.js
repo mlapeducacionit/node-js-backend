@@ -37,7 +37,7 @@ app.post('/api/v1/uploads', upload.single('archivo'), (req, res) => {
   console.log(req.protocol) // http:// | https://
   console.log(req.get('host')) // dominio:puerto | subdominio.dominio
 
-  const protocolo = req.protocol
+  const protocolo = req.protocol 
   const host = req.get('host')
   const urlAlArchivo = `${protocolo}://${host}/${req.file.filename}`
   console.log(urlAlArchivo)

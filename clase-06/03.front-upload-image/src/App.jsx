@@ -19,7 +19,7 @@ const App = () => {
       console.log(clave)
       console.log(valor)
     })
-    const urlBack = 'http://localhost:8080/api/v1/uploads/'
+    const urlBack = 'https://back-upload-imagen.onrender.com/api/v1/uploads/'
     const options = {
       method: 'POST',
       body: formData
@@ -55,7 +55,7 @@ const App = () => {
 
         <button className="btn btn-success">Enviar</button>
       </form>
-      <img src={srcImagen} alt="" width="200" />
+      { srcImagen && <img src={srcImagen} alt="" width="200" />}
     </div>
   )
 
