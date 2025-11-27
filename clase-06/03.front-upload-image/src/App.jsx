@@ -3,7 +3,7 @@
 const App = () => {
 
 
-  const envioFormulario = (e) => {
+  const envioFormulario = async (e) => {
     e.preventDefault()
     console.log('Enviando la data...')
 
@@ -18,9 +18,26 @@ const App = () => {
       console.log(clave)
       console.log(valor)
     })
+    const urlBack = 'http://localhost:8080/api/v1/uploads/'
+    const options = {
+      method: 'POST',
+      body: formData
+    }
+    try {
+      const res = await fetch(urlBack, options)
 
-    
+      if (!res.ok) {
+        throw new Error('No se pudo subir la imagen')
+      }
 
+      const data = await res.json()
+
+      console.log(data)
+
+      e.target.reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

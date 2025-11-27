@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import path from 'path'
 import multer from 'multer'
 import { v4 as uuidv4 } from 'uuid';
+import cors from 'cors'
 
 // ! Constantes y Variables
 const app = express()
@@ -41,6 +42,8 @@ app.use(express.static(path.join(DIRNAME, 'uploads'))) // hago pública el acces
 console.log(path.join(DIRNAME, 'uploads'))
 app.use(express.json()) // Puedo recibir informaicón JSON
 app.use(express.urlencoded({ extended: false })) // Puedo recibir información de un Formulario
+app.use(cors())
+
 
 // ! Rutas
 app.get('/', (req, res) => {
