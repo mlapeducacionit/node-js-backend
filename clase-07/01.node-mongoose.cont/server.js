@@ -2,7 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import { fileURLToPath } from 'url'
 import path from 'path'
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 
 // ! Constantes y Variables
 const app = express()
@@ -109,7 +109,28 @@ app.post('/usuarios', async (req, res) => {
 })
 
 // Update user
+app.put('/usuarios/:id', async (req, res) => {
+  //console.log(req.params)
+  const id = req.params.id
+  //console.log(req.body)
+  const usuarioPorEditar = req.body
 
+  try {
+
+    //const resultado = await ModeloUsuario.updateOne({ _id: id }, { $set: usuarioPorEditar })
+    const options = { new: true, select: '-password' }
+    const resultado = await ModeloUsuario.findByIdAndUpdate(id, usuarioPorEditar, options)
+    //console.log(resultado)
+
+    res.json(resultado)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ mensaje: 'No se pudo editar el usuario'})
+  }
+
+
+  res.send('Edit OK')
+})
 
 
 
