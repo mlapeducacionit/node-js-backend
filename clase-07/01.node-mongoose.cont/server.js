@@ -102,7 +102,31 @@ app.post('/usuarios', async (req, res) => {
     res.status(201).json(usuarioGuardado)
 
   } catch (error) {
-    
+    console.log(error)
+    res.status(500).json({ mensaje: 'No se pudo guardar el usuario'})
+  }
+
+})
+
+// Update user
+
+
+
+
+// Delete user
+app.delete('/usuarios/:id', async (req, res) => {
+  // Query -> Sirve para las Query String
+  // Params -> Sirve para obtener params dentro de la url
+  // console.log(req.params.id)
+  const id = req.params.id
+  try {
+    // const usuarioBorrado = await ModeloUsuario.deleteOne({ _id: id})
+    const usuarioBorrado = await ModeloUsuario.findByIdAndDelete(id)
+    console.log(usuarioBorrado)
+    res.json({ mensaje: `Se borro el usuario con el id: ${id}`})
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ mensaje: 'No se pudo borrar el usuario' })
   }
 
 })
