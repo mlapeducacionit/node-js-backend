@@ -1,36 +1,15 @@
 import express from 'express'
 import 'dotenv/config'
-import pino from 'pino'
+import logger from './configs/logger.js'
+import handleConnection from './utils/handle-connection.js'
 
 // ! Variables / Contantes
 const app = express()
 const PORT = process.env.PORT || 8088
 
 // ! Configuraciones
-const logger = pino(
-    {
-        transport: {
-            targets: [
-                {
-                    level: 'info',
-                    target: 'pino/file',
-                    options: { destination: './logs/info.log'}
-                },
-                {
-                    level: 'error',
-                    target: 'pino/file',
-                    options: { destination: './logs/error.log'}
-                },
-                {
-                    target: 'pino-pretty',
-                    options: {
-                        colorize: true
-                    }
-                }
-            ]
-        }
-    }
-)
+console.log(process.env)
+
 
 // ! Middlewares
 
@@ -57,5 +36,7 @@ app.listen(PORT, (err) => {
   }    
   //console.log(`El servidor funciona correctamente en: http://localhost:${PORT}`)
   logger.info(`El servidor funciona correctamente en: http://localhost:${PORT}`)
+  const uri = 'mongodb://localhost:27017/db_integrador'
+  handleConnection(uri)
 })
 
