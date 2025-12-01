@@ -41,6 +41,10 @@ const EsquemaUsuario = mongoose.Schema(
     correo: String,
     edad: Number,
     password: String
+  },
+  {
+    versionKey: false, // Le quita el field __v
+    timestamps: true // Agrega los fields createAt y udpateAt
   }
 )
 
@@ -69,12 +73,30 @@ app.get('/usuarios', async (req, res) => {
     //const usuarios = await ModeloUsuario.find({}, { password: 0 } )
     const usuarios = await ModeloUsuario.find().select('-password')
     console.log(usuarios)
-    
-      //res.send('OK GET ALL')
-      res.json(usuarios)
+
+    //res.send('OK GET ALL')
+    res.json(usuarios)
   } catch (error) {
     console.log(error)
     res.status(500).json( { mensaje: 'No se pudieron cargar los usuarios...'})
+  }
+
+})
+
+// POST (Create user)
+app.post('/usuarios', async (req, res) => {
+
+  try {
+    const usuarioACrear = req.body
+    console.log(usuarioACrear)
+
+    const usuarioGuardado = await ModeloUsuario.insertOne(usuarioACrear)
+    console.log(usuarioGuardado)
+
+
+    res.send('OK POST')
+  } catch (error) {
+    
   }
 
 })
