@@ -1,0 +1,8 @@
+{"level":30,"time":1764618272893,"pid":24236,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":30,"time":1764618494961,"pid":28256,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":30,"time":1764618512377,"pid":276,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":50,"time":1764618527944,"pid":276,"hostname":"Max","msg":"No se recibió la data"}
+{"level":50,"time":1764618528559,"pid":276,"hostname":"Max","msg":"No se recibió la data"}
+{"level":30,"time":1764618573473,"pid":276,"hostname":"Max","msg":"Se recibió la data"}
+{"level":30,"time":1764618573473,"pid":276,"hostname":"Max","msg":"Algo"}
+{"level":30,"time":1764618611099,"pid":27764,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}

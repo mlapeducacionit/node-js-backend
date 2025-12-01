@@ -36,12 +36,26 @@ const logger = pino(
 
 // ! Rutas
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+
+    if (req.query.data) {
+        logger.info('Se recibió la data')
+        logger.info(req.query.data)
+        res.send(req.query.data)
+    } else {
+        logger.error('No se recibió la data')
+        res.status(400).send('Nada llego.')
+    }
+    
 })
 
 // ! Arranque del servidor
 app.listen(PORT, (err) => {
-  if ( err ) console.log(err)
-  console.log(`El servidor funciona correctamente en: http://localhost:${PORT}`)
+  //if ( err ) console.log(err)
+  if ( err ) {
+    logger.error('No se pudo levantar el servidor')
+    logger.error(err)
+  }    
+  //console.log(`El servidor funciona correctamente en: http://localhost:${PORT}`)
+  logger.info(`El servidor funciona correctamente en: http://localhost:${PORT}`)
 })
 
