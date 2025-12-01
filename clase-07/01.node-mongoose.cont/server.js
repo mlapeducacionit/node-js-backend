@@ -90,11 +90,17 @@ app.post('/usuarios', async (req, res) => {
     const usuarioACrear = req.body
     console.log(usuarioACrear)
 
-    const usuarioGuardado = await ModeloUsuario.insertOne(usuarioACrear)
+    // ! 1. Opción
+    //const usuarioGuardado = await ModeloUsuario.insertOne(usuarioACrear)
+    // ! 2. Opción
+    /* const usuarioAGuardar = new ModeloUsuario(usuarioACrear)
+    const usuarioGuardado = await usuarioAGuardar.save() */
+    // ! 3. Opción
+    const usuarioGuardado = await ModeloUsuario.create(usuarioACrear)
     console.log(usuarioGuardado)
 
+    res.status(201).json(usuarioGuardado)
 
-    res.send('OK POST')
   } catch (error) {
     
   }
