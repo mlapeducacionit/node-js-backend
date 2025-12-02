@@ -6,6 +6,7 @@ import usuariosRouter from './routers/usuarios.router.js'
 import productosRouter from './routers/productos.router.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import ejs from 'ejs'
 
 // ! Variables / Contantes
 const app = express()
@@ -16,7 +17,10 @@ const __dirname = path.dirname(__filename) // La ruta absoluta al proyecto de no
 //console.log(__dirname)
 // ! Configuraciones
 //console.log(process.env)
+app.set('view engine', 'ejs') // Le indico por medio de una variable que motor de plantillas quiero usar
 
+app.set('views', path.join(__dirname, 'views')) // Ruta a donde va a ir a buscar las plantillas
+app.set('layout', 'layout')
 
 // ! Middlewares
 //console.log(path.join(__dirname, 'public'))
@@ -27,6 +31,17 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', usuariosRouter)
 // * Rutas de productos
 app.use('/', productosRouter)
+
+const obtenerPagina = async (view, data = {}) => {
+  const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
+  console.log(rutaALaPagina)
+  return ejs.renderFile(rutaALaPagina, data)
+}
+
+app.get('/', async (req, res) => {
+  const body = await obtenerPagina('home')
+  res.render('layout', { titulo: 'Inicio', body })
+})
 
 // ! Arranque del servidor
 app.listen(PORT, (err) => {
