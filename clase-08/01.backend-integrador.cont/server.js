@@ -35,9 +35,10 @@ app.use('/api/v1/', productosRouter)
 const obtenerPagina = async (view, data = {}) => {
   const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
   console.log(rutaALaPagina)
-  return ejs.renderFile(rutaALaPagina, data)
+  return ejs.renderFile(rutaALaPagina, data) // Devolverme la plantilla ya renderizada
 }
 // Rutas de nuestra aplicación
+// https://www.cbtnuggets.com/blog/technology/devops/ejs-vs-pug-vs-handlebars
 // Home
 app.get('/', async (req, res) => {
   const body = await obtenerPagina('home')
@@ -46,7 +47,13 @@ app.get('/', async (req, res) => {
 
 // Productos
 app.get('/productos', async (req, res) => {
-  const body = await obtenerPagina('productos')
+  const productos = [
+    {id: 1, nombre: 'PC', precio: 234 },
+    {id: 2, nombre: 'Tablet', precio: 555 },
+    {id: 3, nombre: 'Notebook', precio: 333 }
+  ]
+
+  const body = await obtenerPagina('productos', { productos })
   res.render('layout', { titulo: 'Productos', body })
 })
 // Nosotros
