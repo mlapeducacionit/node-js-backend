@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // * Rutas de usuarios
 app.use('/', usuariosRouter)
 // * Rutas de productos
-app.use('/', productosRouter)
+app.use('/api/v1/', productosRouter)
 
 const obtenerPagina = async (view, data = {}) => {
   const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
@@ -45,7 +45,7 @@ app.get('/', async (req, res) => {
 })
 
 // Productos
-app.get('/productos-publico', async (req, res) => {
+app.get('/productos', async (req, res) => {
   const body = await obtenerPagina('productos')
   res.render('layout', { titulo: 'Productos', body })
 })
