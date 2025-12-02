@@ -2,54 +2,31 @@ import express from 'express'
 import 'dotenv/config'
 import logger from './configs/logger.js'
 import handleConnection from './utils/handle-connection.js'
+import usuariosRouter from './routers/usuarios.router.js'
+import productosRouter from './routers/productos.router.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 // ! Variables / Contantes
 const app = express()
 const PORT = process.env.PORT || 8088
-
+const __filename = fileURLToPath(import.meta.url) // La ruta absoluta que incluye el nombre del archivo
+const __dirname = path.dirname(__filename) // La ruta absoluta al proyecto de node.
+//console.log(__filename)
+//console.log(__dirname)
 // ! Configuraciones
-console.log(process.env)
+//console.log(process.env)
 
 
 // ! Middlewares
+//console.log(path.join(__dirname, 'public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // ! Rutas
-app.get('/', (req, res) => {
-
-    if (req.query.data) {
-        logger.info('Se recibió la data')
-        logger.info(req.query.data)
-        res.send(req.query.data)
-    } else {
-        logger.error('No se recibió la data')
-        res.status(400).send('Nada llego.')
-    }
-    
-})
-
-// CRUD Usuarios
-app.get('/user/login', (req, res) => {
-  res.send('login get')
-})
-app.post('/user/login', (req, res) => {
-  res.send('login post')
-})
-app.get('/user/register', (req, res) => {
-  res.send('register get')
-})
-app.post('/user/register', (req, res) => {
-  res.send('register post')
-})
-app.put('/user/edit/:id', (req, res) => {
-  res.send('edit')
-})
-app.delete('/user/delete/:id', (req, res) => {
-  res.send('delete')
-})
-
-
-
-
+// * Rutas de usuarios
+app.use('/', usuariosRouter)
+// * Rutas de productos
+app.use('/', productosRouter)
 
 // ! Arranque del servidor
 app.listen(PORT, (err) => {
