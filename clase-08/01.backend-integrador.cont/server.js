@@ -37,10 +37,27 @@ const obtenerPagina = async (view, data = {}) => {
   console.log(rutaALaPagina)
   return ejs.renderFile(rutaALaPagina, data)
 }
-
+// Rutas de nuestra aplicación
+// Home
 app.get('/', async (req, res) => {
   const body = await obtenerPagina('home')
   res.render('layout', { titulo: 'Inicio', body })
+})
+
+// Productos
+app.get('/productos-publico', async (req, res) => {
+  const body = await obtenerPagina('productos')
+  res.render('layout', { titulo: 'Productos', body })
+})
+// Nosotros
+app.get('/nosotros', async (req, res) => {
+  const body = await obtenerPagina('nosotros')
+  res.render('layout', { titulo: 'Nosotros', body })
+})
+// Contacto
+app.get('/contacto', async (req, res) => {
+  const body = await obtenerPagina('contacto')
+  res.render('layout', { titulo: 'Contacto', body })
 })
 
 // ! Arranque del servidor
