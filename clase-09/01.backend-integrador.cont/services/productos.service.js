@@ -21,7 +21,17 @@ const guardarProducto = async (productoPorCrear) => {
     }
 }
 
+const obtenerProductoPorId = async (id) => {
+    try {
+        const unProducto = await ModeloProducto.findById(id)
+        return unProducto
+    } catch (error) {
+        throw error
+    }
+}
+
 export default {
     obtenerProductos,
-    guardarProducto
+    guardarProducto,
+    obtenerProductoPorId
 }
