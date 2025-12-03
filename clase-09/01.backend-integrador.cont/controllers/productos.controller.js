@@ -1,5 +1,17 @@
+import logger from '../configs/logger.js'
+import services from '../services/productos.service.js'
+
 const getAll = async (req, res) => {
-  res.send('get all productos')
+  try {
+
+    const productos = await services.obtenerProductos()
+    
+    res.json(productos)
+
+  } catch (error) {
+    logger.error(error)
+    //console.log(error)
+  }
 }
 
 const getOne = (req, res) => {
