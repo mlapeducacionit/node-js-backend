@@ -18,8 +18,16 @@ const getOne = (req, res) => {
   res.send('get one producto')
 }
 
-const create = (req, res) => {
-  res.send('create producto')
+const create = async (req, res) => {
+
+  try {
+    const productoPorCrear = req.body
+    const productoGuardado = await services.guardarProducto(productoPorCrear)
+    res.status(201).json(productoGuardado)
+  } catch (error) {
+    logger.error(error)
+  }
+  
 }
 
 const edit = (req, res) => {

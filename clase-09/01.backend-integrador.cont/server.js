@@ -25,6 +25,7 @@ app.set('layout', 'layout')
 // ! Middlewares
 //console.log(path.join(__dirname, 'public'))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.json()) // Me decodifica el json que envia el usuario desde el frontend.
 
 // ! Rutas
 // * Rutas de usuarios

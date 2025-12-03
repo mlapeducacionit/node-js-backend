@@ -12,6 +12,16 @@ const obtenerProductos = async () => {
 
 }
 
+const guardarProducto = async (productoPorCrear) => {
+    try {
+        const productoGuardado = await ModeloProducto.create(productoPorCrear)
+        return productoGuardado
+    } catch (error) {
+        throw error
+    }
+}
+
 export default {
-    obtenerProductos
+    obtenerProductos,
+    guardarProducto
 }
