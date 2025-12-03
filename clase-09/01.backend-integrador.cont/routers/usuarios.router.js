@@ -2,6 +2,7 @@ import express from 'express'
 const usuariosRouter = express.Router()
 
 // CRUD Usuarios
+// TODO: Validaciones de usuarios
 usuariosRouter.get('/user/login', (req, res) => {
   res.send('login get')
 })

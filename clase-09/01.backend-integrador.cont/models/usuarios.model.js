@@ -1,1 +1,1 @@
-// El usuario debería tener nombre, apellido, email, password
+// TODO: Crear el modelo de usuario que debería tener nombre, apellido, email, password

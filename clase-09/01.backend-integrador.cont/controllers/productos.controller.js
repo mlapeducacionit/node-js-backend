@@ -56,10 +56,16 @@ const create = async (req, res) => {
 }
 
 const edit = (req, res) => {
+  // TODO: Realizar el editar Producto
+  // Entrada -> id + body
+  // Salida -> Producto editado
   res.send('edit producto')
 }
 
 const remove = (req, res) => {
+  // TODO: Realizar el eliminar Producto
+  // Entrada -> id
+  // Salida -> Producto borrar
   res.send('delete producto')
 }
 
