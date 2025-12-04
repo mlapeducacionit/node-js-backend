@@ -43,6 +43,19 @@ app.get('/get-cookies', (req, res) => {
   res.send('Cookies recibidas...')
 })
 
+app.get('/info', (req, res) => {
+  console.log('-----------------------------------------------------------')
+  console.log(req.session)
+  console.log('-----------------------------------------------------------')
+  console.log(req.sessionID)
+  console.log('-----------------------------------------------------------')
+  console.log(req.cookies)
+  console.log('-----------------------------------------------------------')
+  console.log(req.sessionStore) // Memoria
+  console.log('-----------------------------------------------------------')
+  res.json({ok: true})
+})
+
 /* -------------------------------------------- */
 /* SESIONES------------------------------------ */
 /* -------------------------------------------- */
@@ -58,10 +71,10 @@ app.get('/con-sesion', (req, res) => {
   console.log(req.session)
   // Variable de sesión
   //req.session.contador = 1
-
+  
   if (req.session.contador) {
     req.session.contador++
-    res.json({ mensaje: `Usted ha visitado el sitio: ${req.session.contador}` })
+    res.json({ mensaje: `Usted ha visitado el sitio: ${req.session.contador} veces` })
   } else {
     req.session.contador = 1
     res.json({ mensaje: 'Bienvenido!'})
