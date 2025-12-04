@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "express-session": "^1.18.2",

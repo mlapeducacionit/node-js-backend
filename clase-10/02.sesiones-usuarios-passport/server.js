@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import routerUser from './routes/usuarios.route.js'
 
 const app = express()
 const PORT = process.env.PORT || 8088
@@ -25,6 +26,10 @@ app.use(session(
     /* cookie: { secure: true} */
   }
 ))
+
+// ! Rutas
+
+app.use('/', routerUser)
 
 app.get('/', (req, res) => {
   const nombre = 'Maxi'
