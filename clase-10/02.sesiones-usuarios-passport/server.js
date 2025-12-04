@@ -18,6 +18,10 @@ app.use(cookieParser())
 // * cookie. Controla que la cookie sea segura.
 // * store: Permite especificar donde se van a guardar las sesiones creadas. Por defecto si no le coloco, guarda en memoria.
 
+// ! Middlewares
+app.use(express.json()) // Decodificar el json que viene por el body
+
+
 app.use(session(
   {
     secret: 'sarasa-tudobom-1234567-%%$$',
