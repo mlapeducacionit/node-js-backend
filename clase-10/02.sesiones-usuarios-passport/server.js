@@ -3,6 +3,7 @@ import 'dotenv/config'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import routerUser from './routes/usuarios.route.js'
+import mongoose from 'mongoose'
 
 const app = express()
 const PORT = process.env.PORT || 8088
@@ -92,6 +93,14 @@ app.get('/con-sesion', (req, res) => {
 })
 
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Example app listening on PORT ${PORT}`)
+  try {
+    console.time('Tiempo conexión DB')
+    await mongoose.connect('mongodb://127.0.0.1:27017/pescar-auth')
+    console.log('Conexión a DB establecida correctamente')
+    console.timeEnd('Tiempo conexión DB')
+  } catch (error) {
+    console.log('No se pudo conectar', error)
+  }
 })

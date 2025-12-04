@@ -34,7 +34,15 @@ const getUserById = () => {
 
 }
 
-const createuser = () => {
+const createUser = async (objUsuario) => {
+
+    try {
+        const usuarioPorCrear = new UsuarioModelo(objUsuario)
+        const usuarioCreado = await usuarioPorCrear.save()
+        return usuarioCreado        
+    } catch (error) {
+        throw error
+    }
 
 }
 
@@ -45,6 +53,6 @@ const chequearPassword = () => {
 export default {
     getUserByEmail,
     getUserById,
-    createuser,
+    createUser,
     chequearPassword
 }

@@ -1,10 +1,9 @@
-
-
+import modelo from '../models/usuarios.model.js'
 
 const login = (req, res) => {
     res.send('login')
 }
-const register = (req, res) => {
+const register = async (req, res) => {
    try {
          // Para registrar un usuarios
         // ! 1. recibir los datos ->  nombre, correo, password, confirm_password
