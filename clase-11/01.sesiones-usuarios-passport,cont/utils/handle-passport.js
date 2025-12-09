@@ -27,7 +27,7 @@ const comprobarUsuario = async (correo, password, done) => {
         }
 
         // ! 3. El usuario existe y coloco la contraseña correcta
-        return done(null, usuario)
+        return done(null, usuario) // ¿Está autenticad?
 
         
     } catch (error) {

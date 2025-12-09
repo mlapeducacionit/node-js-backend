@@ -2,8 +2,8 @@ import passport from 'passport'
 import modelo from '../models/usuarios.model.js'
 
 const login = passport.authenticate('local', {
-    successRedirect: '/api/v1/productos',
-    failureRedirect: '/'
+    successRedirect: '/api/v1/productos', // esCorrecto -> true
+    failureRedirect: '/' // esCorrecto -> false
 })
 
 const register = async (req, res) => {

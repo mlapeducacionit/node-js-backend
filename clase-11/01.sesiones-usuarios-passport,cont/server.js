@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import routerProductos from './routes/productos.route.js'
 import './utils/handle-passport.js'
 import passport from 'passport'
+import MongoStore from 'connect-mongo'
 
 const app = express()
 const PORT = process.env.PORT || 8088
@@ -28,8 +29,10 @@ app.use(session(
     resave: false,
     saveUninitialized: false,
     /* cookie: { secure: true} */
+    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/pescar-auth'})
   }
 ))
+
 app.use(passport.initialize())
 app.use(passport.session())
 
