@@ -39,8 +39,18 @@ UsuarioEsquema.methods.encriptarPassword = async (password) => {
     }
 }
 
-UsuarioEsquema.methods.comprobarPassword = async function(password) {
+UsuarioEsquema.methods.comprobarPassword = async function(passwordLogin) {
+    // El this en este caso hace referencia a los datos. Al modelo
+    try {
+        // passwordLogin -> llego desde el formulario de logueo (No encriptado)
+        // this.password -> es el password guardado en la instancia creación del usuario (Encriptado)
+        const resultadoComprobacion = await bcrypt.compare(passwordLogin, this.password)
+        // Si el compare, devuelve true -> Quiere decir que el usuario existe y la contraseña coincide con la que estaba en la db
+        return resultadoComprobacion // true o false
 
+    } catch (error) {   
+        throw error
+    }
 }
 
 const UsuarioModelo = mongoose.model('usuarios', UsuarioEsquema)
@@ -61,7 +71,14 @@ const getUserByEmail = async (correo) => {
 
 }
 
-const getUserById = () => {
+const getUserById = async (id) => {
+
+    try {
+        const usuario = await UsuarioModelo.findById(id)
+        return usuario // Si existe me devuelve el usuario sino me deuvel null
+    } catch (error) {
+        throw error
+    }
 
 }
 
@@ -78,7 +95,14 @@ const createUser = async (objUsuario) => {
 
 }
 
-const chequearPassword = () => {
+const chequearPassword = async (usuario, passwordLogin) => {
+    
+    try {
+        const esCorrecto = await usuario.comprobarPassword(passwordLogin)
+        return esCorrecto // true o false
+    } catch (error) {
+        throw error
+    }
 
 }
 

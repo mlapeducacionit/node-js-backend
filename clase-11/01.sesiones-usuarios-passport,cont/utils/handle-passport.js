@@ -17,6 +17,7 @@ const comprobarUsuario = async (correo, password, done) => {
 
         // ! 2. Comprobar si el password que recibí del formulario de login coincide con el password almacenado en la db
         // true si es correcto y devuelve false si no es correcto
+        // usuario encontrado basado en el correo y password recibido desde el formulario de login
         const esCorrecto = await models.chequearPassword(usuario, password) 
         //                           el usuario obtenido y el password que viene del form de login.
         

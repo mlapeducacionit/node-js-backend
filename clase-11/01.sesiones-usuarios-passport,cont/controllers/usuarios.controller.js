@@ -1,9 +1,10 @@
+import passport from 'passport'
 import modelo from '../models/usuarios.model.js'
 
-const login = (req, res) => {
-    console.log(req.body)
-    res.send('login')
-}
+const login = passport.authenticate('local', {
+    successRedirect: '/api/v1/productos',
+    failureRedirect: '/login'
+})
 
 const register = async (req, res) => {
    try {
