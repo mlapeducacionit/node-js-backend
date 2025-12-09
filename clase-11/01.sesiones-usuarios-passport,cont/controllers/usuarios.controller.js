@@ -3,7 +3,7 @@ import modelo from '../models/usuarios.model.js'
 
 const login = passport.authenticate('local', {
     successRedirect: '/api/v1/productos',
-    failureRedirect: '/login'
+    failureRedirect: '/'
 })
 
 const register = async (req, res) => {

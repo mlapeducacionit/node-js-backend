@@ -1,10 +1,10 @@
 const isAutenthicated = (req, res, next) => {
 
-    if ( req.isAutenthicated() ) {
+    if ( req.isAuthenticated() ) {
         return next()
     }
 
-    res.send('No tenés acceso a la parte privada')
+    res.status(401).send('No tenés acceso a la parte privada')
     // res.redirect('/login')
 
 }
