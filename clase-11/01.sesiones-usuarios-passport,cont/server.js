@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import routerUser from './routes/usuarios.route.js'
 import mongoose from 'mongoose'
+import routerProductos from './routes/productos.route.js'
 
 const app = express()
 const PORT = process.env.PORT || 8088
@@ -35,6 +36,7 @@ app.use(session(
 // ! Rutas
 
 app.use('/', routerUser)
+app.use('/api/v1/productos', routerProductos)
 
 app.get('/', (req, res) => {
   const nombre = 'Maxi'

@@ -8,3 +8,5 @@ routerProductos.get('/', (req, res) => {
 routerProductos.get('/:id', (req, res) => {
     res.send('Un solo producto')
 })
+
+export default routerProductos
