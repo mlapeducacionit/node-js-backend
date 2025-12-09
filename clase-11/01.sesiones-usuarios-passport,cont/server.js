@@ -5,6 +5,8 @@ import session from 'express-session'
 import routerUser from './routes/usuarios.route.js'
 import mongoose from 'mongoose'
 import routerProductos from './routes/productos.route.js'
+import './utils/handle-passport.js'
+import passport from 'passport'
 
 const app = express()
 const PORT = process.env.PORT || 8088
@@ -13,17 +15,13 @@ const PORT = process.env.PORT || 8088
 // ! Cookies
 app.use(cookieParser())
 // ! Sesiones
-
 // * secret -> cadena de caracteres que se va a usar para generar sesiones ->  Esto va dentro de una variable de entorno -> secret es una semilla que me va permitir generar un sid único para mi servidor
 // * resave -> false (recomendado) -> Permite indica si se va a estar guardando cada vez que se haga una petición.
 // * saveUninitialized -> false (recomendado) -> Ni bien crea sesión, si crea vacía no la guardo.
 // * cookie. Controla que la cookie sea segura.
 // * store: Permite especificar donde se van a guardar las sesiones creadas. Por defecto si no le coloco, guarda en memoria.
-
 // ! Middlewares
 app.use(express.json()) // Decodificar el json que viene por el body
-
-
 app.use(session(
   {
     secret: 'sarasa-tudobom-1234567-%%$$',
@@ -32,6 +30,8 @@ app.use(session(
     /* cookie: { secure: true} */
   }
 ))
+app.use(passport.initialize())
+app.use(passport.session())
 
 // ! Rutas
 
