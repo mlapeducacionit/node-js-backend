@@ -4,6 +4,7 @@ import logger from './configs/logger.js'
 import handleConnection from './utils/handle-connection.js'
 import usuariosRouter from './routers/usuarios.router.js'
 import productosRouter from './routers/productos.router.js'
+import routerAuth from './routers/auth.router.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import ejs from 'ejs'
@@ -32,6 +33,7 @@ app.use(express.json()) // Me decodifica el json que envia el usuario desde el f
 app.use('/', usuariosRouter)
 // * Rutas de productos
 app.use('/api/v1/', productosRouter)
+app.use('/auth', routerAuth)
 
 const obtenerPagina = async (view, data = {}) => {
   const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
