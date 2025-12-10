@@ -22,9 +22,24 @@ const mostrarFormuRegister = async (req, res) => {
     res.render('layout', { titulo: 'Formulario de Registro', body })
 }
 const procesarDataFormuLogin = (req, res) => { // /auth/formu-login
+
     res.send('formu-login (POST)')
 }
 const procesarDataFormuRegister =  (req, res) => { // /auth/formu-register
+
+    try {
+        console.log(req.body)
+
+        const { nombre, correo, password, password_confirm } = req.body
+        console.log(nombre)
+        console.log(correo)
+        console.log(password)
+        console.log(password_confirm)
+
+    } catch (error) {
+        
+    }
+
     res.send('formu-register (POST)')
 }
 const logout = (req, res) => { // /auth/logout
