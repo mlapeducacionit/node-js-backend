@@ -25,10 +25,41 @@ const mostrarFormuRegister = async (req, res) => {
     const body = await obtenerPagina('formu-register')
     res.render('layout', { titulo: 'Formulario de Registro', body })
 }
-const procesarDataFormuLogin = passport.authenticate('local', {
-    successRedirect: '/admin/productos',
-    failureRedirect: '/auth/formu-login'
-})
+const procesarDataFormuLogin = async (req, res) => {
+
+    try {
+        const { correo, password } = req.body
+        const usuario = await models.getUserByEmail(correo)
+
+        const esCorrecto = await models.chequearPasword(usuario, password)
+
+        if ( !usuario || !esCorrecto) {
+            return res.status(200).json({ mensaje: 'Credenciales inválidas' })
+        }
+
+        console.log('OK')
+
+        // ! FIRMAR EL TOKEN (GENERAR TOKEN)
+        const payload = { id: usuario._id }
+        const token = jwt.sign(payload, 'esto-es-un secreto-123-%&$', { expiresIn: '1d'})
+        console.log(token)
+        // https://www.jwt.io/
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: false, // Cuando este en produción a true (HTTPS)
+            sameSite: 'strict',
+            maxAge: 24 * 60 * 60 * 1000 // 1 día
+        })
+
+        res.json({ token: `Bearer ${token}`})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ mensaje:'Algo falló'})
+    }
+
+
+}
 
 
 const procesarDataFormuRegister = async (req, res) => { // /auth/formu-register
@@ -70,8 +101,11 @@ const procesarDataFormuRegister = async (req, res) => { // /auth/formu-register
     }
 
 }
+
 const logout = (req, res) => { // /auth/logout
-    res.send('logout')
+    res.clearCookie('jwt')
+    res.json({ mensaje: 'Sesión cerrada'})
+
 }
 
 export default {
