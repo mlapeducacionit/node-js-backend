@@ -403,3 +403,9 @@
 {"level":30,"time":1765396072646,"pid":3704,"hostname":"Max","msg":"Se conecto a la DB"}
 {"level":30,"time":1765397204911,"pid":9384,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
 {"level":30,"time":1765397204942,"pid":9384,"hostname":"Max","msg":"Se conecto a la DB"}
+{"level":30,"time":1765397281272,"pid":30240,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":30,"time":1765397281307,"pid":30240,"hostname":"Max","msg":"Se conecto a la DB"}
+{"level":30,"time":1765397391066,"pid":30920,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":30,"time":1765397391097,"pid":30920,"hostname":"Max","msg":"Se conecto a la DB"}
+{"level":30,"time":1765397849647,"pid":4956,"hostname":"Max","msg":"El servidor funciona correctamente en: http://localhost:8080"}
+{"level":30,"time":1765397849676,"pid":4956,"hostname":"Max","msg":"Se conecto a la DB"}
