@@ -14,10 +14,14 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^6.0.0",
     "ejs": "^3.1.10",
     "express": "^5.2.0",
     "express-validator": "^7.3.1",
     "mongoose": "^9.0.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "pino": "^10.1.0",
     "pino-pretty": "^13.1.3"
   },

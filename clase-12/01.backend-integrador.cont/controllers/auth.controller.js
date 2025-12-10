@@ -64,7 +64,6 @@ const procesarDataFormuRegister = async (req, res) => { // /auth/formu-register
         logger.error(error)
     }
 
-    res.send('formu-register (POST)')
 }
 const logout = (req, res) => { // /auth/logout
     res.send('logout')

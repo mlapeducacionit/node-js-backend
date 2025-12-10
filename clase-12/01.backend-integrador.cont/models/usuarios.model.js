@@ -20,6 +20,48 @@ const UsuarioEsquema = new mongoose.Schema(
     }
 )
 
+UsuarioEsquema.methods.encriptarPassowrd = async (password) => {
+
+    try {
+        const salt = await bycrypt.getSalt(10)
+        const passwordEncriptada = await bcrypt.hash(password, salt)
+        return passwordEncriptada
+    } catch (error) {
+        throw error
+    }
+}
+
+
 const UsuarioModelo = mongoonse.model('usuarios', UsuarioEsquema)
 
-export default UsuarioModelo
+
+const getUserByEmail = async (correo) => {
+
+    try {
+        const usuario = await UsuarioModelo.findOne( { correo })
+        return usuario
+    } catch (error) {
+        throw error
+    }
+
+}
+
+const createUser = async (nuevoUsuario) => {
+
+    try {
+        
+        const usuarioPorCrear = new UsuarioModelo(nuevoUsuario)
+        // Tenemos que llamar al método del esquema
+        usuarioPorCrear.password = await usuarioPorCrear.encriptarPassowrd(usuarioPorCrear.password)
+        const usuarioCreado = await usuarioPorCrear.save()
+        return usuarioCreado
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export default {
+    getUserByEmail,
+    createUser
+}
