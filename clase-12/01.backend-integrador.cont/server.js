@@ -8,6 +8,10 @@ import routerAuth from './routers/auth.router.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import ejs from 'ejs'
+import './utils/handle-passport.js'
+import passport from 'passport'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
 
 
 // ! Variables / Contantes
@@ -29,6 +33,18 @@ app.set('layout', 'layout')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json()) // Me decodifica el json que envia el usuario desde el frontend.
 app.use(express.urlencoded( { extended: false} )) // Me decodifica lo que reciba a través de un formulario
+
+app.use(session(
+  {
+    secret: 'dsafasdfañ123kj1ñ23kljjñafdkasñuby05430856jlkjk4lj234-----32kl12jñ3kl12hadsfaydfas23qwe4897',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/db_integrador'})
+  }
+))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 // ! Rutas
 // * Rutas de usuarios
