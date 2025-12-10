@@ -1,3 +1,6 @@
+import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+
 const UsuarioEsquema = new mongoose.Schema(
     {
         nombre: {
@@ -23,7 +26,7 @@ const UsuarioEsquema = new mongoose.Schema(
 UsuarioEsquema.methods.encriptarPassowrd = async (password) => {
 
     try {
-        const salt = await bycrypt.getSalt(10)
+        const salt = await bcrypt.genSalt(10)
         const passwordEncriptada = await bcrypt.hash(password, salt)
         return passwordEncriptada
     } catch (error) {
@@ -32,7 +35,7 @@ UsuarioEsquema.methods.encriptarPassowrd = async (password) => {
 }
 
 
-const UsuarioModelo = mongoonse.model('usuarios', UsuarioEsquema)
+const UsuarioModelo = mongoose.model('usuarios', UsuarioEsquema)
 
 
 const getUserByEmail = async (correo) => {

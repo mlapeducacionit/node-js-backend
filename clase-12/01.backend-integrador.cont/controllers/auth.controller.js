@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import ejs from 'ejs'
 import logger from '../configs/logger.js'
+import models from '../models/usuarios.model.js'
 
 
 const __filename = fileURLToPath(import.meta.url) // La ruta absoluta que incluye el nombre del archivo

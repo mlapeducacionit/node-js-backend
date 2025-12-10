@@ -17,4 +17,4 @@ routerAuth.post('/formu-register', controller.procesarDataFormuRegister)
 
 routerAuth.get('/logout', controller.logout)
 
-export default routerAuth
+export default routerAuth   
