@@ -34,6 +34,16 @@ UsuarioEsquema.methods.encriptarPassowrd = async (password) => {
     }
 }
 
+UsuarioEsquema.comprobarPassword = async function( passwordLogin) {
+
+    try {
+        const resultadoComprobacion = await bcrypt.compare(passwordLogin, this.password)
+        return resultadoComprobacion // true o false
+    } catch (error) {
+        throw error
+    }
+}
+
 
 const UsuarioModelo = mongoose.model('usuarios', UsuarioEsquema)
 
@@ -64,7 +74,31 @@ const createUser = async (nuevoUsuario) => {
 
 }
 
+const chequearPasword = async (usuario, passwordLogin) => {
+
+    try {
+        const esCorrecto = await usuario.comprobarPassword(passwordLogin)
+        return esCorrecto
+    } catch (error) {
+        throw error
+    }
+
+}
+
+const getUserById = async (id) => {
+
+    try {
+        const usuario = await UsuarioModelo.findById(id)
+        return usuario
+    } catch (error) {
+        throw error
+    }
+
+}
+
 export default {
     getUserByEmail,
-    createUser
+    createUser,
+    chequearPasword,
+    getUserById
 }
