@@ -34,7 +34,7 @@ UsuarioEsquema.methods.encriptarPassowrd = async (password) => {
     }
 }
 
-UsuarioEsquema.comprobarPassword = async function( passwordLogin) {
+UsuarioEsquema.methods.comprobarPassword = async function( passwordLogin) {
 
     try {
         const resultadoComprobacion = await bcrypt.compare(passwordLogin, this.password)

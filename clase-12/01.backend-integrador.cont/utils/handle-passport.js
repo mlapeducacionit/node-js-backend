@@ -35,9 +35,9 @@ const estrategiaLocal = new Strategy(fieldEstrategia, comprobandoUsuario)
 export default passport.use(estrategiaLocal)
 
 // Se ejecuta una sola vez después del login
-passport.deserializeUser((usuario, done) => {
+passport.serializeUser((usuario, done) => {
     done(null, usuario.id) // Guardo el ID en el cookie de sesión
-})
+ })
 
 // Chequea la cokie cada vez que se haga un request
 passport.deserializeUser( async (id, done) => {

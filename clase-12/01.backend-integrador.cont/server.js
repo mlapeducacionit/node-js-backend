@@ -12,6 +12,8 @@ import './utils/handle-passport.js'
 import passport from 'passport'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import adminProductosRouter from './routers/admin.productos.router.js'
+import isAuthenticated from './middlewares/admin.middleware.js'
 
 
 // ! Variables / Contantes
@@ -52,6 +54,7 @@ app.use('/', usuariosRouter)
 // * Rutas de productos
 app.use('/api/v1/', productosRouter)
 app.use('/auth', routerAuth)
+app.use('/admin', isAuthenticated, adminProductosRouter)
 
 const obtenerPagina = async (view, data = {}) => {
   const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
