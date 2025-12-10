@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import ejs from 'ejs'
 import logger from '../configs/logger.js'
 import models from '../models/usuarios.model.js'
+import passport from 'passport'
 
 
 const __filename = fileURLToPath(import.meta.url) // La ruta absoluta que incluye el nombre del archivo
@@ -24,9 +25,12 @@ const mostrarFormuRegister = async (req, res) => {
     const body = await obtenerPagina('formu-register')
     res.render('layout', { titulo: 'Formulario de Registro', body })
 }
-const procesarDataFormuLogin = (req, res) => { // /auth/formu-login
-    res.send('formu-login (POST)')
-}
+const procesarDataFormuLogin = passport.authenticate('local', {
+    successRedirect: '/admin/productos',
+    failureRedirect: '/auth/formu-login'
+})
+
+
 const procesarDataFormuRegister = async (req, res) => { // /auth/formu-register
 
     try {
