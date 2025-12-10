@@ -21,6 +21,8 @@ const app = express()
 const PORT = process.env.PORT || 8088
 const __filename = fileURLToPath(import.meta.url) // La ruta absoluta que incluye el nombre del archivo
 const __dirname = path.dirname(__filename) // La ruta absoluta al proyecto de node.
+const URI_MONGO = process.env.DB_MONGO
+const SECRET_SESSION = process.env.SECRET_SESSION
 //console.log(__filename)
 //console.log(__dirname)
 // ! Configuraciones
@@ -38,10 +40,10 @@ app.use(express.urlencoded( { extended: false} )) // Me decodifica lo que reciba
 
 app.use(session(
   {
-    secret: 'dsafasdfañ123kj1ñ23kljjñafdkasñuby05430856jlkjk4lj234-----32kl12jñ3kl12hadsfaydfas23qwe4897',
+    secret: SECRET_SESSION,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/db_integrador'})
+    store: MongoStore.create({ mongoUrl: URI_MONGO})
   }
 ))
 
@@ -100,7 +102,7 @@ app.listen(PORT, (err) => {
   }    
   //console.log(`El servidor funciona correctamente en: http://localhost:${PORT}`)
   logger.info(`El servidor funciona correctamente en: http://localhost:${PORT}`)
-  const uri = 'mongodb://localhost:27017/db_integrador'
+  const uri = URI_MONGO
   handleConnection(uri)
 })
 
