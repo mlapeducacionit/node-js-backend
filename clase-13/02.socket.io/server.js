@@ -56,6 +56,13 @@ io.on('connection', (socket) => {
 
     socket.emit('mensajes', mensajes)
 
+    socket.on('nuevo-mensaje', (newMessage) => {
+        console.log(newMessage)
+
+        mensajes.push(newMessage)
+        io.sockets.emit('mensajes', mensajes)
+    })
+
 })
 
 app.get('/', (req, res) => {
