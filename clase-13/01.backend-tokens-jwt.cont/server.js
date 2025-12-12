@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import ejs from 'ejs'
 import passport from 'passport'
 import adminProductosRouter from './routers/admin.productos.router.js'
+import isAuthenticated from './middlewares/productos.middleware.js'
 
 
 // ! Variables / Contantes
@@ -40,7 +41,7 @@ app.use('/', usuariosRouter)
 // * Rutas de productos
 app.use('/api/v1/', productosRouter)
 app.use('/auth', routerAuth)
-app.use('/admin', adminProductosRouter)
+app.use('/admin', isAuthenticated, adminProductosRouter)
 
 const obtenerPagina = async (view, data = {}) => {
   const rutaALaPagina = path.join(__dirname, 'views', 'pages', view + '.ejs')
