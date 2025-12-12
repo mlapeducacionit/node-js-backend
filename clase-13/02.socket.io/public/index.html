@@ -6,9 +6,39 @@
     <title>Chat en vivo</title>
 </head>
 <body>
-    <h1>Chat en vivo</h1>
-    <hr>
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold text-center mt-8">Chat en Vivo Pescar</h1>
+        <hr class="my-4 border-t-5 border-gray-300">
 
+        <form id="chat-formu" class="border border-blue-400 p-8 w-11/12 mx-auto mt-6 rounded shadow">
+            <!-- usuarios -->
+            <div>
+                <label for="lbl-usuario" class="block text-sm font-medium text-gray-700">Tu nombre</label>
+                <input type="text" name="usuario" id="lbl-usuario" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <!-- mensaje -->
+            <div>
+                <label for="lbl-mensaje" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                <input type="text" name="mensaje" id="lbl-mensaje" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <!-- Botón de envío de mensaje -->
+            <button type="submit" id="btn" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow cursor-pointer">
+                Enviar
+            </button>
+        </form>
+
+
+        <!-- Mensajes escritos por los participantes -->
+
+        <div id="mensajes" class="border border-blue-400 mx-auto p-8 w-11/12 mt-6 rounded shadow">
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="socket.io/socket.io.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
