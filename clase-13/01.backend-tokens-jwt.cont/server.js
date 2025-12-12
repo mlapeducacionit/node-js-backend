@@ -11,7 +11,8 @@ import ejs from 'ejs'
 import passport from 'passport'
 import adminProductosRouter from './routers/admin.productos.router.js'
 import isAuthenticated from './middlewares/productos.middleware.js'
-
+import cookieParser from 'cookie-parser'
+import './utils/handle_passport-jwt.js'
 
 // ! Variables / Contantes
 const app = express()
@@ -34,6 +35,9 @@ app.set('layout', 'layout')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json()) // Me decodifica el json que envia el usuario desde el frontend.
 app.use(express.urlencoded( { extended: false} )) // Me decodifica lo que reciba a través de un formulario
+app.use(passport.initialize())
+app.use(cookieParser())
+
 
 // ! Rutas
 // * Rutas de usuarios

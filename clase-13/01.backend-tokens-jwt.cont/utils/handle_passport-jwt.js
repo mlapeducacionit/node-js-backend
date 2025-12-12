@@ -1,5 +1,5 @@
 import passport from 'passport'
-import { Stragery as JwtStrategy } from 'passport-jwt'
+import { Strategy as JwtStrategy } from 'passport-jwt'
 import models from '../models/usuarios.model.js'
 
 const cookieExtractor = req => {
